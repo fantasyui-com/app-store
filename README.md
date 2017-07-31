@@ -1,2 +1,12 @@
-# application-store
-Electron based Application Installer and Manager
+# App Store
+
+Open Source App Store for Electron Apps.
+
+## Usage
+
+```
+
+  npm i -g epx;
+  epx app-store
+
+```
