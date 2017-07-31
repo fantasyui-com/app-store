@@ -2,7 +2,7 @@
 
 Open Source App Store for Electron Apps.
 
-![](images/screenshot-001.png)
+![](images/screenshot-002.png)
 Alpha Screenshot
 
 ## Goal
