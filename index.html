@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <title>App Store</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
 
     <style>
+
     html {
       font-size: 11px;
       text-shadow: 1px 1px 1px #ffffff;
     }
+
     body {
       background: linear-gradient(135deg, #d2e3de 0%,#dee0d6 100%);
     }
+
     nav, .card, .alert {
       box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
     }
+
     </style>
 
   </head>
@@ -62,14 +68,18 @@
       </div>
 
       <div class="row">
-        <div class="col">
 
-          <h1 class="display-4">App Store</h1>
+
+        <div id="app-title" class="col">
+
+          <h1 class="display-4">{{name}}</h1>
           <p class="lead">
-            Manage Electron Applications
+            {{description}}
           </p>
 
         </div>
+
+
         <div class="col p-3">
           <div class="alert alert-success" role="alert">
             <strong>Installing Updates!</strong> Package 12/43
@@ -96,118 +106,42 @@
 
 
 
-      <div class="row">
-        <div class="col col-sm-4">
+      <div class="row" id="app-packages">
 
 
-          <div class="card">
-            <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
-            <div class="ard-block p-3">
-              <h4 class="card-title">Bootstrap Electron</h4>
-              <p class="card-text">Bootstrap based Electron Application Starter Pack</p>
-              <a href="#" class="btn btn-primary">Install</a>
-              <div class="progress my-1" style="visibility: hidden;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+
+
+
+          <div class="col col-sm-4 pb-3" v-for="package in packages">
+
+
+            <div class="card">
+              <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
+              <div class="ard-block p-3">
+                <h4 class="card-title">{{ package.name }}</h4>
+                <p class="card-text">{{ package.description }}</p>
+                <a href="#" class="btn btn-primary" v-on:click="install(package)">{{ package.buttonLabel }}</a>
+
+
+                <div v-if="package.progressBar" class="progress my-1">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                </div>
               </div>
             </div>
-          </div>
 
-        </div>
-
-        <div class="col col-sm-4">
-
-          <div class="card">
-            <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
-            <div class="ard-block p-3">
-              <h4 class="card-title">Bootstrap Electron</h4>
-              <p class="card-text">Bootstrap based Electron Application Starter Pack</p>
-              <a href="#" class="btn btn-warning">Installing</a>
-              <div class="progress my-1">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-              </div>
-
-            </div>
           </div>
 
         </div>
 
 
-        <div class="col col-sm-4">
 
-          <div class="card">
-            <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
-            <div class="ard-block p-3">
-              <h4 class="card-title">Bootstrap Electron</h4>
-              <p class="card-text">Bootstrap based Electron Application Starter Pack</p>
-              <a href="#" class="btn btn-info">Launch</a>
-              <div class="progress my-1" style="visibility: hidden;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-              </div>
-            </div>
-          </div>
 
-        </div>
+
+
       </div>
 
 
-      <div class="row p-3">
-        <div class="col p-3">
-        </div>
-      </div>
 
-
-            <div class="row">
-              <div class="col col-sm-4">
-
-
-                <div class="card">
-                  <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
-                  <div class="ard-block p-3">
-                    <h4 class="card-title">Bootstrap Electron</h4>
-                    <p class="card-text">Bootstrap based Electron Application Starter Pack</p>
-                    <a href="#" class="btn btn-primary">Install</a>
-                    <div class="progress my-1" style="visibility: hidden;">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="col col-sm-4">
-
-                <div class="card">
-                  <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
-                  <div class="ard-block p-3">
-                    <h4 class="card-title">Bootstrap Electron</h4>
-                    <p class="card-text">Bootstrap based Electron Application Starter Pack</p>
-                    <a href="#" class="btn btn-warning">Installing</a>
-                    <div class="progress my-1">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div class="col col-sm-4">
-
-                <div class="card">
-                  <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
-                  <div class="ard-block p-3">
-                    <h4 class="card-title">Bootstrap Electron</h4>
-                    <p class="card-text">Bootstrap based Electron Application Starter Pack</p>
-                    <a href="#" class="btn btn-info">Launch</a>
-                    <div class="progress my-1" style="visibility: hidden;">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
 
 
 
@@ -220,11 +154,13 @@
 
   <script>
     // You can also require other files to run in this process
-    $(function(){
+    // $(function(){
+    //
+    //
+    // })
 
-      require('./renderer.js');
+    require('./renderer.js');
 
-    })
   </script>
 
 </html>
