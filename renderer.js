@@ -7,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp');
 const pacote = require('pacote');
+const rimraf = require('rimraf');
 
 const { spawn } = require('child_process');
 
@@ -17,12 +18,15 @@ const stateManager = {
 
   applyDefault: function(package){
     if(!package.state) package.state = {};
+
+    package.state.name = 'Default'
     package.state.buttonAction = 'install-package';
     package.state.progressBar = false;
     package.state.buttonLabel = 'Install';
   },
 
   applyInstalled: function(package){
+    package.state.name = 'Installed'
     package.state.buttonAction = 'launch-package';
     package.state.progressBar = false;
     package.state.buttonLabel = 'Launch';
@@ -77,6 +81,10 @@ Vue.component('cycle', {
 
     buttonAction: function (package) {
       this.ee.emit(package.state.buttonAction, package);
+    },
+
+    uninstallAction: function (package) {
+      this.ee.emit('uninstall-package', package);
     }
 
   }
@@ -111,6 +119,19 @@ var appPackages = new Vue({
 
       await pacote.extract(package.name, path.join(dirapps, package.name));
       stateManager.applyInstalled(package);
+
+
+    });
+
+    this.ee.on('uninstall-package', async (package) => {
+      console.log('uninstall-package event occurred for [%s]', package.name, package);
+
+      if(dirapps && package.name) rimraf(path.join(dirapps, package.name), function(){
+
+        stateManager.applyDefault(package);
+        
+      });
+
 
 
     });
