@@ -11,9 +11,6 @@ const rimraf = require('rimraf');
 
 const { spawn } = require('child_process');
 
-class MyEmitter extends EventEmitter {}
-const ee = new MyEmitter();
-
 const stateManager = {
 
   applyDefault: function(package){
@@ -38,8 +35,10 @@ const dirapps = path.join( path.resolve(__dirname), 'installed' );
 mkdirp.sync(dirapps);
 
 // this is the initial library.
-let packages = [];
-packages.push( { name: 'bootstrap-electron', description: 'Bootstrap based Electron Application Starter Pack', state:{} } );
+// let packages = [];
+// packages.push( { name: 'bootstrap-electron', description: 'Bootstrap based Electron Application Starter Pack', state:{} } );
+
+let packages = require('app-catalog').data;
 
 packages.forEach(p => {
     stateManager.applyDefault(p);
@@ -53,6 +52,49 @@ installed.forEach(i => {
     }
   })
 })
+
+
+class MyEmitter extends EventEmitter {}
+const ee = new MyEmitter();
+
+ee.on('install-package', async (package) => {
+  await pacote.extract(package.name, path.join(dirapps, package.name));
+
+  const install = spawn("npm", ["i"], {cwd:path.join(dirapps, package.name)});
+   install.stdout.on('data', (data) => {
+     console.log(`electron stdout: ${data}`);
+   });
+   install.stderr.on('data', (data) => {
+     console.log(`electron stderr: ${data}`);
+   });
+   install.on('close', (code) => {
+     console.log(`electron child process exited with code ${code}`);
+     stateManager.applyInstalled(package);
+   });
+
+});
+
+ee.on('uninstall-package', async (package) => {
+  if(dirapps && package.name) rimraf(path.join(dirapps, package.name), function(){
+    stateManager.applyDefault(package);
+  });
+});
+
+ee.on('launch-package', async (package) => {
+  const electron = spawn("electron", [path.join(dirapps, package.name)]);
+   electron.stdout.on('data', (data) => {
+     console.log(`electron stdout: ${data}`);
+   });
+   electron.stderr.on('data', (data) => {
+     console.log(`electron stderr: ${data}`);
+   });
+   electron.on('close', (code) => {
+     console.log(`electron child process exited with code ${code}`);
+   });
+});
+
+
+
 
 Vue.component('cycle', {
   template: '#cycle-template',
@@ -113,54 +155,6 @@ var appPackages = new Vue({
     this.ee.on('event', (o) => {
       console.log('an event occurred!', o);
     });
-
-    this.ee.on('install-package', async (package) => {
-      console.log('install-package event occurred for [%s]', package.name, package);
-
-      await pacote.extract(package.name, path.join(dirapps, package.name));
-      stateManager.applyInstalled(package);
-
-
-    });
-
-    this.ee.on('uninstall-package', async (package) => {
-      console.log('uninstall-package event occurred for [%s]', package.name, package);
-
-      if(dirapps && package.name) rimraf(path.join(dirapps, package.name), function(){
-
-        stateManager.applyDefault(package);
-        
-      });
-
-
-
-    });
-
-    this.ee.on('launch-package', async (package) => {
-      console.log('launch-package event occurred for [%s]', package.name, package);
-
-
-
-      const electron = spawn("electron", [path.join(dirapps, package.name)]);
-
-       electron.stdout.on('data', (data) => {
-         console.log(`electron stdout: ${data}`);
-       });
-
-       electron.stderr.on('data', (data) => {
-         console.log(`electron stderr: ${data}`);
-       });
-
-       electron.on('close', (code) => {
-         console.log(`electron child process exited with code ${code}`);
-       });
-
-
-
-    });
-
-
-
 
   },
 
