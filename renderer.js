@@ -15,11 +15,17 @@ const stateManager = {
 
   applyDefault: function(package){
     if(!package.state) package.state = {};
-
     package.state.name = 'Default'
     package.state.buttonAction = 'install-package';
     package.state.progressBar = false;
     package.state.buttonLabel = 'Install';
+  },
+
+  applyInstalling: function(package){
+    package.state.name = 'Installing'
+    package.state.buttonAction = 'noop';
+    package.state.progressBar = true;
+    package.state.buttonLabel = 'Installing';
   },
 
   applyInstalled: function(package){
@@ -27,7 +33,7 @@ const stateManager = {
     package.state.buttonAction = 'launch-package';
     package.state.progressBar = false;
     package.state.buttonLabel = 'Launch';
-  }
+  },
 
 }
 
@@ -58,6 +64,9 @@ class MyEmitter extends EventEmitter {}
 const ee = new MyEmitter();
 
 ee.on('install-package', async (package) => {
+
+  stateManager.applyInstalling(package);
+
   await pacote.extract(package.name, path.join(dirapps, package.name));
 
   const install = spawn("npm", ["i"], {cwd:path.join(dirapps, package.name)});
