@@ -28,6 +28,13 @@ const stateManager = {
     package.state.buttonLabel = 'Installing';
   },
 
+  applyUpdating: function(package){
+    package.state.name = 'Updating'
+    package.state.buttonAction = 'noop';
+    package.state.progressBar = true;
+    package.state.buttonLabel = 'Updating';
+  },
+
   applyInstalled: function(package){
     package.state.name = 'Installed'
     package.state.buttonAction = 'launch-package';
@@ -64,11 +71,8 @@ class MyEmitter extends EventEmitter {}
 const ee = new MyEmitter();
 
 ee.on('install-package', async (package) => {
-
   stateManager.applyInstalling(package);
-
   await pacote.extract(package.name, path.join(dirapps, package.name));
-
   const install = spawn("npm", ["i"], {cwd:path.join(dirapps, package.name)});
    install.stdout.on('data', (data) => {
      console.log(`electron stdout: ${data}`);
@@ -80,7 +84,22 @@ ee.on('install-package', async (package) => {
      console.log(`electron child process exited with code ${code}`);
      stateManager.applyInstalled(package);
    });
+});
 
+ee.on('update-package', async (package) => {
+  stateManager.applyUpdating(package);
+
+  const install = spawn("npm", ["update"], {cwd:path.join(dirapps, package.name)});
+   install.stdout.on('data', (data) => {
+     console.log(`electron stdout: ${data}`);
+   });
+   install.stderr.on('data', (data) => {
+     console.log(`electron stderr: ${data}`);
+   });
+   install.on('close', (code) => {
+     console.log(`electron child process exited with code ${code}`);
+     stateManager.applyInstalled(package);
+   });
 });
 
 ee.on('uninstall-package', async (package) => {
@@ -136,6 +155,10 @@ Vue.component('cycle', {
 
     uninstallAction: function (package) {
       this.ee.emit('uninstall-package', package);
+    },
+    
+    updateAction: function (package) {
+      this.ee.emit('update-package', package);
     }
 
   }

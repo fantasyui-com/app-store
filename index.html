@@ -45,7 +45,8 @@
     <a v-if="model.state.name == 'Default'" href="#" class="btn btn-primary" v-on:click.prevent="buttonAction(model)">{{ model.state.buttonLabel }}</a>
 
     <a v-if="model.state.name == 'Installed'" href="#" class="btn btn-warning" v-on:click.prevent="buttonAction(model)">{{ model.state.buttonLabel }}</a>
-    <a v-if="model.state.name == 'Installed'" href="#" class="float-right btn btn-link" v-on:click.prevent="uninstallAction(model)"><i style="font-size: 1.5rem;" class="fa fa-trash"></i></a>
+    <a v-if="model.state.name == 'Installed'" href="#" title="Update" class="float-right btn btn-link" v-on:click.prevent="updateAction(model)"><i style="font-size: 1.5rem;" class="fa fa-refresh"></i></a>
+    <a v-if="model.state.name == 'Installed'" href="#" title="Uninstall" class="float-right btn btn-link" v-on:click.prevent="uninstallAction(model)"><i style="font-size: 1.5rem;" class="fa fa-trash"></i></a>
 
     <div v-if="model.state.progressBar" class="progress my-1">
       <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
