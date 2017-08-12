@@ -44,8 +44,12 @@ const stateManager = {
 
 }
 
-const dirapps = path.join( path.resolve(__dirname), 'installed' );
+const envPaths = require('env-paths');
+const paths = envPaths('npm-app-store');
+
+const dirapps = path.join( paths.cache, 'installed' );
 mkdirp.sync(dirapps);
+console.log('dirapps: %s',dirapps);
 
 // this is the initial library.
 // let packages = [];
@@ -156,7 +160,7 @@ Vue.component('cycle', {
     uninstallAction: function (package) {
       this.ee.emit('uninstall-package', package);
     },
-    
+
     updateAction: function (package) {
       this.ee.emit('update-package', package);
     }

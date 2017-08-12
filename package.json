@@ -20,6 +20,7 @@
   "homepage": "https://github.com/fantasyui-com/app-store#readme",
   "dependencies": {
     "app-catalog": "^1.0.3",
+    "env-paths": "^1.0.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "pacote": "^4.0.0",
