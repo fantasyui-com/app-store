@@ -1,5 +1,6 @@
 # App Store
-Open Source App Store for Electron Apps. Bring powerful, simple, minimalist Electron/Node based GUI apps to the user.
+Flexible general purpose app-store framework with customizable app feeds.
+Bring powerful, simple, minimalist Electron/Node based apps to the user.
 
 ## Roadmap
 
@@ -16,8 +17,8 @@ Alpha Screenshot
 Install [Node.js](https://nodejs.org/en/download/) and execute the following in your in terminal/command shell.
 
 ```
-  npm i -g epx;
-  epx app-store
+  npm i -g epx; # install epx on your system
+  epx app-store # launch app-store with epx
 
 ```
 
@@ -28,3 +29,11 @@ Clone https://github.com/fantasyui-com/bootstrap-electron to get started.
 ## Publishing Apps
 
 An open catalog of npm package names and public git repositories will be generated based on a public search for unique tags/keywords, it will be published to github for review/testing. App-store will periodically pull the list to keep up to date.
+
+## Ideas
+
+- Desktop Mode, show applications as icons on a desktop-like screen.
+
+## Snippets
+
+electron-builder --win --ia32 --prepackaged ./win32-x64/

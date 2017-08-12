@@ -2,7 +2,7 @@
   "name": "app-store",
   "productName": "app-store",
   "version": "1.0.13",
-  "description": "## Usage",
+  "description": "Flexible general purpose app-store framework with customizable app feeds.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/fantasyui-com/app-store#readme",
   "dependencies": {
-    "app-catalog": "^1.0.3",
+    "app-catalog": "^1.0.6",
     "env-paths": "^1.0.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",

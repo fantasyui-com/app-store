@@ -27,6 +27,7 @@
 
     body {
       background: linear-gradient(135deg, #CFCFCF 0%, #E5E5E5 100%);
+      min-height: 100vh;
     }
 
     nav, .card, .alert {
@@ -124,7 +125,7 @@
       <div v-cloak class="row" id="app-packages">
           <div class="col col-sm-4 pb-3" v-for="package in packages">
             <div class="card">
-              <img class="card-img-top img-fluid" src="images/test-app.png" alt="Card image cap">
+              <img class="card-img-top img-fluid" v-bind:src="'node_modules/app-catalog/images/'+package.name+'.png'" alt="Card image cap">
               <div class="ard-block p-3">
                 <h4 class="card-title">{{ package.name }}</h4>
                 <p class="card-text">{{ package.description }}</p>
