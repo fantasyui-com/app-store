@@ -1,7 +1,5 @@
-installed
-darwin-x64
-win32-x64
-dist
+download-cache
+tmp
 
 # Logs
 logs
