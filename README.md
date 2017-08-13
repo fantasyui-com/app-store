@@ -37,3 +37,6 @@ An open catalog of npm package names and public git repositories will be generat
 ## Snippets
 
 electron-builder --win --ia32 --prepackaged ./win32-x64/
+gulp=spawn(process.env.SHELL, ['-c', 'cd ' + project.directory + ' && gulp'])
+childProcess.execFileSync(process.env.SHELL, ['-c', 'launchctl setenv PATH "$PATH"'])
+asar pack . app.asar ; cp app.asar /Users/-/Downloads/Electron.app/Contents/Resources/default_app.asar

@@ -2,14 +2,17 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-const EventEmitter = require('events');
 const fs = require('fs')
 const path = require('path')
-const mkdirp = require('mkdirp');
-const pacote = require('pacote');
 const rimraf = require('rimraf');
+const mkdirp = require('mkdirp');
 
-const { spawn } = require('child_process');
+const EventEmitter = require('events');
+
+const npm = require('npm');
+
+const electron = require('electron');
+const BrowserWindow = electron.remote.BrowserWindow;
 
 const stateManager = {
 
@@ -59,7 +62,7 @@ packages.forEach(p => {
     stateManager.applyDefault(p);
 })
 
-let installed = fs.readdirSync(dirapps);
+let installed = fs.readdirSync(path.join(dirapps, 'node_modules'));
 installed.forEach(i => {
   packages.forEach(p => {
     if(p.name === i){
@@ -74,53 +77,60 @@ const ee = new MyEmitter();
 
 ee.on('install-package', async (package) => {
   stateManager.applyInstalling(package);
-  await pacote.extract(package.name, path.join(dirapps, package.name));
-  const install = spawn("npm", ["i"], {cwd:path.join(dirapps, package.name)});
-   install.stdout.on('data', (data) => {
-     console.log(`electron stdout: ${data}`);
-   });
-   install.stderr.on('data', (data) => {
-     console.log(`electron stderr: ${data}`);
-   });
-   install.on('close', (code) => {
-     console.log(`electron child process exited with code ${code}`);
-     stateManager.applyInstalled(package);
-   });
+  npm.load({
+    prefix: dirapps,
+    loaded: false,
+    global: false,
+  }, function(err) {
+    npm.commands.install([package.name], function(er, data) {
+      stateManager.applyInstalled(package);
+    });
+    npm.on('log', function(message) {
+      // log installation progress
+      console.log(message);
+    });
+  });
 });
 
 ee.on('update-package', async (package) => {
   stateManager.applyUpdating(package);
-
-  const install = spawn("npm", ["update"], {cwd:path.join(dirapps, package.name)});
-   install.stdout.on('data', (data) => {
-     console.log(`electron stdout: ${data}`);
-   });
-   install.stderr.on('data', (data) => {
-     console.log(`electron stderr: ${data}`);
-   });
-   install.on('close', (code) => {
-     console.log(`electron child process exited with code ${code}`);
-     stateManager.applyInstalled(package);
-   });
+  npm.load({
+    prefix: dirapps,
+    loaded: false,
+    global: false,
+  }, function(err) {
+    npm.commands.update([package.name], function(er, data) {
+      stateManager.applyInstalled(package);
+    });
+    npm.on('log', function(message) {
+      // log installation progress
+      console.log(message);
+    });
+  });
 });
 
 ee.on('uninstall-package', async (package) => {
-  if(dirapps && package.name) rimraf(path.join(dirapps, package.name), function(){
-    stateManager.applyDefault(package);
+  npm.load({
+    prefix: dirapps,
+    loaded: false,
+    global: false,
+  }, function(err) {
+    npm.commands.uninstall([package.name], function(er, data) {
+      stateManager.applyInstalled(package);
+    });
+    npm.on('log', function(message) {
+      // log installation progress
+      console.log(message);
+    });
   });
 });
 
 ee.on('launch-package', async (package) => {
-  const electron = spawn("electron", [path.join(dirapps, package.name)]);
-   electron.stdout.on('data', (data) => {
-     console.log(`electron stdout: ${data}`);
-   });
-   electron.stderr.on('data', (data) => {
-     console.log(`electron stderr: ${data}`);
-   });
-   electron.on('close', (code) => {
-     console.log(`electron child process exited with code ${code}`);
-   });
+   let win = new BrowserWindow({width: 800, height: 600})
+   win.on('closed', () => {
+     win = null
+   })
+   win.loadURL(`file://${path.join(dirapps, 'node_modules' ,package.name)}/index.html`)
 });
 
 
