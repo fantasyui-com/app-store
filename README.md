@@ -2,6 +2,16 @@
 Flexible general purpose app-store framework with customizable app feeds.
 Bring powerful, simple, minimalist Electron/Node based apps to the user.
 
+## App Store Installation
+
+[Downloads](downloads) folder contains downloads for Linux, Mac, and Windows.
+
+Windows users please download [app-store-windows-64.zip](https://github.com/fantasyui-com/app-store/raw/master/downloads/app-store-windows-64.zip) unless you have an older [32bit] setup where [app-store-windows-32.zip](https://github.com/fantasyui-com/app-store/raw/master/downloads/app-store-windows-32.zip) will work.
+
+Mac users please download [app-store-mac-x64.zip](https://github.com/fantasyui-com/app-store/raw/master/downloads/app-store-mac-x64.zip)
+
+Linux build is available under [app-store-linux-x64.zip](https://github.com/fantasyui-com/app-store/raw/master/downloads/app-store-linux-x64.zip)
+
 ## Roadmap
 
 1. Super Easy Download/Install inspired by the [Portable Application](https://en.wikipedia.org/wiki/Portable_application) concept.
@@ -12,7 +22,7 @@ Bring powerful, simple, minimalist Electron/Node based apps to the user.
 ![](images/screenshot.png)
 Alpha Screenshot
 
-## Launch/Usage
+## Development Launch/Usage (Node.js users)
 
 Install [Node.js](https://nodejs.org/en/download/) and execute the following in your in terminal/command shell.
 

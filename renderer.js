@@ -50,7 +50,9 @@ const stateManager = {
 const envPaths = require('env-paths');
 const paths = envPaths('npm-app-store');
 const dirapps = path.join( paths.cache, 'installed' );
+
 mkdirp.sync(dirapps);
+mkdirp.sync(path.join( dirapps, 'node_modules' ));
 
 // this is the initial library.
 // let packages = [];
