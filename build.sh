@@ -31,7 +31,7 @@ curl -L -o tmp/darwin-x64/darwin-x64.zip https://github.com/electron/electron/re
 cd tmp/darwin-x64/
   unzip -q darwin-x64.zip;
   mv darwin-x64.zip ../../download-cache;
-  mv Electron.app app-store.app
+  mv Electron.app start.app
   cp -f ../../default_app.asar app-store.app/Contents/Resources/
   zip -y -9 -r ../../downloads/app-store-mac-x64.zip .
 cd -;
@@ -40,7 +40,7 @@ curl -L -o tmp/linux-x64/linux-x64.zip https://github.com/electron/electron/rele
 cd tmp/linux-x64/
   unzip -q linux-x64.zip;
   mv linux-x64.zip ../../download-cache;
-  mv electron app-store
+  mv electron start
   cp -f ../../default_app.asar resources/
   zip -y -9 -r ../../downloads/app-store-linux-x64.zip .
 cd -;
@@ -49,7 +49,7 @@ curl -L -o tmp/win32-ia32/win32-ia32.zip https://github.com/electron/electron/re
 cd tmp/win32-ia32/
   unzip -q win32-ia32.zip;
   mv win32-ia32.zip ../../download-cache;
-  mv electron.exe app-store.exe
+  mv electron.exe start.exe
   cp -f ../../default_app.asar resources/
   zip -9 -r ../../downloads/app-store-windows-32.zip .
 cd -;
@@ -58,7 +58,7 @@ curl -L -o tmp/win32-x64/win32-x64.zip https://github.com/electron/electron/rele
 cd tmp/win32-x64/
   unzip -q win32-x64.zip;
   mv win32-x64.zip ../../download-cache;
-  mv electron.exe app-store.exe
+  mv electron.exe start.exe
   cp -f ../../default_app.asar resources/
   zip -9 -r ../../downloads/app-store-windows-64.zip .
 cd -;

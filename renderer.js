@@ -118,7 +118,7 @@ ee.on('uninstall-package', async (package) => {
     global: false,
   }, function(err) {
     npm.commands.uninstall([package.name], function(er, data) {
-      stateManager.applyInstalled(package);
+      stateManager.applyDefault(package);
     });
     npm.on('log', function(message) {
       // log installation progress

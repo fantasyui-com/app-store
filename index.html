@@ -58,12 +58,18 @@
 
 
 
-    <nav class="hidden navbar navbar-toggleable-sm navbar-light bg-faded">
+    <nav class="navbar fixed-bottom navbar-toggleable-sm navbar-light bg-faded">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+
+        <form class="form-inline my-2 my-lg-0">
+          <input style="width: 50vw;" class="form-control mr-sm-2" type="text" placeholder="Enter command (or type in help and press <enter>)">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Help</button>
+        </form>
+
+        <!-- <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
@@ -73,11 +79,8 @@
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
           </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Package Name">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </ul> -->
+
       </div>
     </nav>
 
@@ -89,43 +92,14 @@
         </div>
       </div>
 
-      <div class="row">
-        <div v-cloak id="app-title" class="col">
-          <h1 class="display-4">{{name}}</h1>
-          <p class="lead">
-            {{description}}
-          </p>
-        </div>
 
-        <div class="col p-3">
-
-          <!-- <div class="alert alert-success" role="alert">
-            <strong>Installing Updates!</strong> Package 12/43
-            <div class="progress my-1">
-              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-            </div>
-          </div> -->
-
-        </div>
-      </div>
-
-      <div class="row p-3">
-        <div class="col p-3">
-          <br>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <p>Productivity</p>
-          <hr>
-        </div>
-      </div>
 
       <div v-cloak class="row" id="app-packages">
-          <div class="col col-sm-4 pb-3" v-for="package in packages">
-            <div class="card">
-              <img class="card-img-top img-fluid" v-bind:src="'node_modules/app-catalog/images/'+package.name+'.png'" alt="Card image cap">
+          <div class="col">
+          <div class="card-group">
+
+            <div class="card m-1" v-for="package in packages">
+              <img class="card-img-top img-fluid" v-bind:src="'../app-catalog/images/'+package.name+'.png'" alt="Card image cap">
               <div class="ard-block p-3">
                 <h4 class="card-title">{{ package.name }}</h4>
                 <p class="card-text">{{ package.description }}</p>
@@ -136,9 +110,12 @@
 
 
               </div>
+              </div>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
   </body>
