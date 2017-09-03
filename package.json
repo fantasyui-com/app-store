@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/fantasyui-com/app-store#readme",
   "dependencies": {
-    "app-catalog": "^1.0.6",
+    "app-catalog": "^1.0.7",
     "env-paths": "^1.0.0",
     "mkdirp": "^0.5.1",
-    "npm": "^5.3.0",
+    "npm": "^5.4.0",
     "rimraf": "^2.6.1"
   },
   "devDependencies": {}
