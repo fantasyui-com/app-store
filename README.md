@@ -18,8 +18,8 @@ Linux build is available under [app-store-linux-x64.zip](https://github.com/fant
 2. App Store will support multiple software catalogs called feeds. Users will be able to add/remove software catalog feeds to customize their homepage.
 
 Alpha Screenshot
-![](images/screenshot-1.png)
-![](images/screenshot-2.png)
+![](screenshot-1.png)
+![](screenshot-2.png)
 
 ## Development Launch/Usage (Node.js users)
 
