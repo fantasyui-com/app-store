@@ -22,7 +22,7 @@
     "app-catalog": "^1.1.0",
     "env-paths": "^1.0.0",
     "mkdirp": "^0.5.1",
-    "npm": "^6.10.0",
+    "npm": "^6.10.1",
     "rimraf": "^2.6.1"
   },
   "devDependencies": {}
