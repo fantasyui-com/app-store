@@ -1,7 +1,7 @@
 {
   "name": "app-store",
   "productName": "app-store",
-  "version": "2.26.0",
+  "version": "2.27.0",
   "description": "Flexible general purpose app-store framework with customizable app feeds.",
   "main": "main.js",
   "scripts": {
