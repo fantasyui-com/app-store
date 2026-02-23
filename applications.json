@@ -1,0 +1,11 @@
+[
+  "Bootstrap Electron Starter",
+  {
+    "name": "Document Viewer",
+    "description": "Read and organize local project documents."
+  },
+  {
+    "title": "Release Uploader",
+    "description": "Prepare release artifacts for GitHub Releases publishing."
+  }
+]

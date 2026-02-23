@@ -1,12 +1,16 @@
 {
   "name": "app-store",
-  "productName": "app-store",
+  "productName": "Application Storage",
   "version": "2.35.0",
-  "description": "Flexible general purpose app-store framework with customizable app feeds.",
-  "main": "main.js",
+  "description": "Application Storage - configurable Electron application catalog viewer.",
+  "main": "src/index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "save": "git add .; git commit -m 'New Release'; git push; npm version patch; npm publish; git push;"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
   },
   "repository": {
     "type": "git",
@@ -20,11 +24,18 @@
   },
   "homepage": "https://github.com/fantasyui-com/app-store#readme",
   "dependencies": {
-    "app-catalog": "^1.1.0",
-    "env-paths": "^1.0.0",
-    "mkdirp": "^0.5.1",
-    "npm": "^10.8.0",
-    "rimraf": "^2.7.1"
+    "bootstrap": "5.3.8",
+    "electron-squirrel-startup": "^1.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.1",
+    "@electron-forge/maker-deb": "^7.11.1",
+    "@electron-forge/maker-rpm": "^7.11.1",
+    "@electron-forge/maker-squirrel": "^7.11.1",
+    "@electron-forge/maker-zip": "^7.11.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
+    "@electron-forge/plugin-fuses": "^7.11.1",
+    "@electron/fuses": "^1.8.0",
+    "electron": "40.6.0"
+  }
 }

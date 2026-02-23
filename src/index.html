@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Storage</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+      body {
+        min-height: 100vh;
+        background: linear-gradient(160deg, #f8f9fa 0%, #e9f2ff 100%);
+      }
+
+      .app-shell {
+        max-width: 1140px;
+      }
+
+      .source-value {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body class="py-4 py-lg-5">
+    <main class="container app-shell">
+      <header class="mb-4">
+        <h1 class="display-6 mb-2">Application Storage</h1>
+        <p class="text-secondary mb-1">Desktop catalog powered by <code>applications.json</code>.</p>
+        <p class="small mb-0">
+          Source:
+          <span id="source-label" class="source-value text-primary-emphasis">Loading...</span>
+        </p>
+      </header>
+
+      <section class="mb-4">
+        <div id="status-box" class="alert alert-info mb-0" role="status">Loading applications...</div>
+      </section>
+
+      <section id="url-panel" class="mb-4 d-none">
+        <div class="card border-warning-subtle">
+          <div class="card-body">
+            <h2 class="h5">Catalog URL Required</h2>
+            <p class="text-secondary">
+              <code>applications.json</code> was not found locally. Enter a URL to a compatible JSON file.
+            </p>
+            <form id="url-form" class="row g-2">
+              <div class="col-12 col-lg-9">
+                <input
+                  id="catalog-url"
+                  class="form-control"
+                  type="url"
+                  placeholder="https://example.com/applications.json"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              <div class="col-12 col-lg-3">
+                <button class="btn btn-primary w-100" type="submit">Load Catalog</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div id="applications-row" class="row g-3"></div>
+      </section>
+    </main>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

@@ -59,3 +59,13 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Local build outputs
+out/
+dist/
+tmp/
+download-cache/
+
+# Do not store release binaries in git.
+downloads/*
+!downloads/.gitkeep
