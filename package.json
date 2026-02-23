@@ -1,41 +1,14 @@
 {
-  "name": "app-store",
-  "productName": "Application Storage",
-  "version": "2.35.0",
-  "description": "Application Storage - configurable Electron application catalog viewer.",
-  "main": "src/index.js",
+  "name": "app-store-monorepo",
   "private": true,
+  "workspaces": [
+    "apps/application-storage"
+  ],
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fantasyui-com/app-store.git"
-  },
-  "keywords": [],
-  "author": "fantasyui.com <fantasyui.com@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fantasyui-com/app-store/issues"
-  },
-  "homepage": "https://github.com/fantasyui-com/app-store#readme",
-  "dependencies": {
-    "bootstrap": "5.3.8",
-    "electron-squirrel-startup": "^1.0.1"
-  },
-  "devDependencies": {
-    "@electron-forge/cli": "^7.11.1",
-    "@electron-forge/maker-deb": "^7.11.1",
-    "@electron-forge/maker-rpm": "^7.11.1",
-    "@electron-forge/maker-squirrel": "^7.11.1",
-    "@electron-forge/maker-zip": "^7.11.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
-    "@electron-forge/plugin-fuses": "^7.11.1",
-    "@electron/fuses": "^1.8.0",
-    "electron": "40.6.0"
+    "start": "npm run -w @fantasyui/application-storage start",
+    "make": "npm run -w @fantasyui/application-storage make",
+    "lint": "npm run -w @fantasyui/application-storage lint",
+    "audit": "npm audit --workspaces --include-workspace-root",
+    "audit:fix": "npm audit fix --workspaces --include-workspace-root"
   }
 }

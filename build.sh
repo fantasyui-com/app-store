@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[build] Installing dependencies..."
+echo "[build] Installing workspace dependencies..."
 npm ci
 
-echo "[build] Building release artifacts with Electron Forge..."
+echo "[build] Building application-storage release package..."
 npm run make
 
-echo "[build] Build complete. Upload artifacts from out/make/ to GitHub Releases."
+echo "[build] Done. Upload artifacts from apps/application-storage/out/ to GitHub Releases."

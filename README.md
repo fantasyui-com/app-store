@@ -1,16 +1,22 @@
 # Application Storage
 
-Application Storage is a desktop Electron catalog viewer. It loads application entries from `applications.json` and displays them as Bootstrap cards.
+Application Storage is an Electron desktop catalog viewer now organized as a small npm workspace monorepo.
 
-## What Changed
+## Monorepo Layout
 
-- Program branding is now **Application Storage**.
-- Electron runtime is upgraded to a modern Electron Forge setup.
-- The catalog is sourced from `applications.json` (array or `{ "applications": [...] }`).
-- If `applications.json` is missing, the app asks for a URL to a remote JSON catalog.
-- Local binary artifacts are no longer stored in git under `downloads/`.
+- `apps/application-storage`: desktop app package
+- `notes/`: Fluent Planner notes
+- root workspace scripts: start, make, lint, audit
+
+## Security Remediation
+
+- Ran `npm audit fix --force`.
+- Removed the vulnerable Electron Forge toolchain dependencies.
+- Replaced build/start tooling with a lean Electron workspace package.
 
 ## Catalog Format
+
+The app reads `apps/application-storage/applications.json`.
 
 Simple text entries are supported:
 
@@ -38,14 +44,16 @@ npm install
 npm run start
 ```
 
-## Release Builds
+## Release Build
 
 ```bash
 npm run make
 ```
 
-Build artifacts are generated under `out/make/`. Upload those files to:
+This generates a packaged app under `apps/application-storage/out/` for the current host platform.
+
+Upload release binaries to:
 
 - https://github.com/fantasyui-com/app-store/releases
 
-This replaces committing binary zips into `downloads/`.
+Do not commit release binaries into git.
